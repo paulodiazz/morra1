@@ -1,6 +1,7 @@
-import {loadStdlib} from "@reach-sh/stdlib";
+import {loadStdlib, ask} from "@reach-sh/stdlib";
 import * as backend from './build/index.main.mjs';
 const stdlib =loadStdlib();
+//const isAlice= ask.ask ? 'Ask'
 
 const startingBalance = stdlib.parseCurrency(100);
 const accAlice = await stdlib.newTestAccount(startingBalance);
@@ -45,8 +46,19 @@ await Promise.all([
     }),
     ctcBob.p.Bob({
         ...Player('Bob'),
-        acceptWager: (amt) => {
-            console.log(`Bob accepts the wager of ${fmt(amt)}.`);
+        acceptWager: (x) => {
+            console.log(`Bob accepts ${fmt(x)}`)
+        },
+        getHand: async () => {
+            const hand = Math.floor(Math.random() * 3);
+            console.log(`${Who} played ${HAND[hand]}`);
+            if (Math.random()<=0.01){
+                for(let i=0;i<10;i++){
+                    console.log(`${Who} takes their time senging it back`);
+                    await stdlib.wait(1);
+                }
+            }
+            return hand;
         },
     }),
 ]);
