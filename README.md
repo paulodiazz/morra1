@@ -7,6 +7,8 @@ run instructions:
 Clone GUI branch and on the folder run:
 
 reach compile
+
+
 reach react
 
 I included a couple animation that I created, hope you enjoy.
